@@ -15,10 +15,12 @@ import java.util.Map;
 	aliasName = "${lambdas_alias_name}",
 	logsExpiration = RetentionSetting.SYNDICATE_ALIASES_SPECIFIED
 )
-public class HelloWorld implements RequestHandler<Map<String, Object>, Map<String, Object>> {
 
-	@Override
-	public Map<String, Object> handleRequest(Map<String, Object> request, Context context) {
+public class HelloWorld implements RequestHandler<Object, Map<String, Object>> {
+
+
+	public Map<String, Object> handleRequest(Object request, Context context) {
+
 		System.out.println("Received request: " + request);
 
 		// Extract HTTP method and path
@@ -37,6 +39,8 @@ public class HelloWorld implements RequestHandler<Map<String, Object>, Map<Strin
 			response.put("error", "Invalid request");
 			response.put("message", "The requested endpoint '" + path + "' with method '" + method + "' is not supported.");
 		}
+
+		System.out.println("Hello from lambda");
 
 		return response;
 	}
