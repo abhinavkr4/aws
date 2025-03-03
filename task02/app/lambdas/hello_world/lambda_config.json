@@ -7,7 +7,7 @@
   "runtime": "nodejs20.x",
   "memory": 128,
   "timeout": 100,
-  "lambda_path": "lambdas\\hello_world",
+  "lambda_path": "lambdas/hello_world",
   "dependencies": [],
   "event_sources": [],
   "env_variables": {},
