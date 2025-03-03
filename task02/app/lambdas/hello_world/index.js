@@ -8,7 +8,7 @@ exports.handler = async (event) => {
         return {
             statusCode: 200,
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ message: "Hello from Lambda" }), // Removed duplicate statusCode
+            body: JSON.stringify({statusCode:200, message: "Hello from Lambda" }), // Removed duplicate statusCode
         };
     }
 
@@ -16,7 +16,7 @@ exports.handler = async (event) => {
     return {
         statusCode: 400,
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
+        body: JSON.stringify({statusCode:400,
             message: `Bad request syntax or unsupported method. Request path: ${path}. HTTP method: ${method}.`,
         }),
     };
