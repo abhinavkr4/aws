@@ -33,6 +33,7 @@
     "resources": {
       "/hello": {
         "GET": {
+          "authorizationType": "NONE",
           "integration": {
             "type": "AWS_PROXY",
             "uri": "arn:aws:apigateway:{region}:lambda:path/2015-03-31/functions/${lambda_arn}/invocations"
