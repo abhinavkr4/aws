@@ -6,16 +6,5 @@
     ],
     "resource_type": "iam_role",
     "tags": {}
-  },
-
-  "sns_handler": {
-    "resource_type": "lambda",
-    "iam_role_name": "sns_handler-role",
-    "event_sources": [
-      {
-        "resource_name": "lambda_topic",
-        "type": "sns_topic_trigger"
-      }
-    ]
   }
 }
