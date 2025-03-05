@@ -1,5 +1,5 @@
 {
-  "name": "sqs_handler",
+  "name": "api_handler",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
