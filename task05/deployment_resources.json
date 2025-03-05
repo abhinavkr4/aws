@@ -38,12 +38,17 @@
   "task5_api": {
     "resource_type": "api_gateway",
     "deploy_stage": "api",
+
     "dependencies": [],
     "resources": {
       "/events": {
         "enable_cors": false,
         "POST": {
           "enable_proxy": true,
+          "integration": {
+            "type": "AWS_PROXY",
+            "uri": "arn:aws:apigateway:{region}:lambda:path/2015-03-31/functions/${lambda_arn}/invocations"
+          },
           "authorization_type": "NONE",
           "integration_type": "lambda",
           "lambda_name": "api_handler",
