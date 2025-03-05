@@ -7,5 +7,21 @@
     ],
     "resource_type": "iam_role",
     "tags": {}
+  },
+  "lambda_topic": {
+    "resource_type": "sns_topic",
+    "region": "eu-central-1",
+    "tags": {}
+  },
+  "sns_handler": {
+    "resource_type": "lambda",
+    "event_sources": [
+      {
+        "resource_name": "lambda_topic",
+        "type": "sns_topic_trigger"
+      }
+    ],
+    "publish_version": true,
+    "alias": "${lambdas_alias_name}"
   }
 }
