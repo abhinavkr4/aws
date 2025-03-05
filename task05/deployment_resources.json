@@ -59,6 +59,7 @@
       "/events": {
         "enable_cors": false,
         "POST": {
+          "lambda_name": "cmtr-0035135f-api_handler",
           "enable_proxy": true,
           "integration": {
             "type": "AWS_PROXY",
@@ -66,7 +67,7 @@
           },
           "authorization_type": "NONE",
           "integration_type": "lambda",
-          "lambda_name": "api_handler",
+
           "api_key_required": false,
           "method_request_parameters": {},
           "integration_request_body_template": {},
