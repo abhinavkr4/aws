@@ -29,7 +29,6 @@
     "resource_type": "api_gateway",
     "deploy_stage": "api",
     "dependencies": [],
-    "name": "cmtr-0035135f-task3_api-cs0l",
     "resources": {
       "/hello": {
         "GET": {
