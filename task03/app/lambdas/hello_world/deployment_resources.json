@@ -7,26 +7,5 @@
     ],
     "resource_type": "iam_role",
     "tags": {}
-  },
-  "task3_api": {
-    "resource_type": "api_gateway",
-    "deploy_stage": "api",
-    "dependencies": [],
-    "url_config": {
-      "auth_type": "NONE"
-    },
-    "name": "cmtr-0035135f-task3_api-cs0l",
-    "resources": {
-      "/hello": {
-        "GET": {
-          "auth_type": "NONE",
-          "integration": {
-            "type": "AWS_PROXY",
-            "uri": "arn:aws:apigateway:{region}:lambda:path/2015-03-31/functions/${lambda_arn}/invocations"
-          }
-        }
-      }
-    },
-    "tags": {}
   }
 }
