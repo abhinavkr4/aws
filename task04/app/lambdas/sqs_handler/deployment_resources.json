@@ -8,25 +8,9 @@
     "resource_type": "iam_role",
     "tags": {}
   },
-  "async_queue": {
-    "resource_type": "sqs_queue",
-    "region": "eu-central-1",
-    "queue_type": "standard",
-    "visibility_timeout": 60,
-    "tags": {}
-  },
-  "sqs_handler": {
-    "resource_type": "lambda",
-    "event_sources": [
-      {
-        "resource_name": "async_queue",
-        "type": "sqs_trigger"
-      }
-    ],
-    "publish_version": true,
-    "alias": "${lambdas_alias_name}"
-  },
+
   "lambda-basic-execution": {
+    "resource_type": "iam_policy",
     "policy_content": {
       "Statement": [
         {
