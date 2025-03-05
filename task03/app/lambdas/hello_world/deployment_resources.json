@@ -12,6 +12,9 @@
     "resource_type": "api_gateway",
     "deploy_stage": "api",
     "dependencies": [],
+    "url_config": {
+      "auth_type": "NONE"
+    },
     "name": "cmtr-0035135f-task3_api-cs0l",
     "resources": {
       "/hello": {
