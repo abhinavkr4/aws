@@ -84,6 +84,8 @@
       "lambda-basic-execution"
     ],
     "resource_type": "iam_role",
-    "tags": {}
+    "allowed_accounts": [
+      "${account_id}"
+    ]
   }
 }
