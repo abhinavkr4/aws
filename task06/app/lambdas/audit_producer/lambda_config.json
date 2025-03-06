@@ -14,7 +14,9 @@
     "target_table": "Configuration",
     "batch_size": 1
   }],
-  "env_variables": {},
+  "env_variables": {
+    "demo_table_name": "${target_table}"
+  },
   "publish_version": true,
   "alias": "${lambdas_alias_name}",
   "url_config": {},

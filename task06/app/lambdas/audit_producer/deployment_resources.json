@@ -7,21 +7,5 @@
     ],
     "resource_type": "iam_role",
     "tags": {}
-  },
-  "PolicyName": "lambda-basic-execution",
-  "PolicyDocument": {
-    "Statement": [
-      {
-        "Effect": "Allow",
-        "Action": [
-          "dynamodb:GetShardIterator",
-          "dynamodb:DescribeStream",
-          "dynamodb:ListStreams",
-          "dynamodb:GetRecords",
-          "dynamodb:PutItem"
-        ],
-        "Resource": "*"
-      }
-    ]
   }
 }

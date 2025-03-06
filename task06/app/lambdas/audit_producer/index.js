@@ -1,9 +1,9 @@
-const AWS = require('aws-sdk');
-const { v4: uuidv4 } = require('uuid');
+const AWS = require("aws-sdk");
+const { v4: uuidv4 } = require("uuid");
 
 // Initialize DynamoDB client
 const dynamoDB = new AWS.DynamoDB.DocumentClient();
-const AUDIT_TABLE = process.env.TARGET_TABLE || "Audit"; // Uses alias from syndicate_aliases.yml
+const AUDIT_TABLE = "${target_table}"; // Uses alias from syndicate_aliases.yml
 
 exports.handler = async (event) => {
     console.log("Received event:", JSON.stringify(event, null, 2));
@@ -20,9 +20,9 @@ exports.handler = async (event) => {
 
 async function processRecord(record) {
     const eventName = record.eventName; // INSERT, MODIFY, REMOVE
-    const newItem = AWS.DynamoDB.Converter.unmarshall(record.dynamodb.NewImage || {});
-    const oldItem = AWS.DynamoDB.Converter.unmarshall(record.dynamodb.OldImage || {});
-    const itemKey = newItem.key || oldItem.key;
+    const newItem = record.dynamodb.NewImage ? AWS.DynamoDB.Converter.unmarshall(record.dynamodb.NewImage) : null;
+    const oldItem = record.dynamodb.OldImage ? AWS.DynamoDB.Converter.unmarshall(record.dynamodb.OldImage) : null;
+    const itemKey = newItem?.key || oldItem?.key || "UnknownKey";
 
     const auditEntry = {
         id: uuidv4(),
@@ -31,12 +31,20 @@ async function processRecord(record) {
     };
 
     if (eventName === "INSERT") {
-        auditEntry.newValue = newItem;
+        auditEntry.newValue = {
+            key: newItem.key,
+            value: newItem.value
+        };
     } else if (eventName === "MODIFY") {
-        auditEntry.oldValue = oldItem.value;
-        auditEntry.newValue = newItem.value;
+        auditEntry.oldValue = oldItem?.value ?? null;
+        auditEntry.newValue = newItem?.value ?? null;
+
+        // Capture updated attribute (assumes single attribute update)
+        if (oldItem?.value !== newItem?.value) {
+            auditEntry.updatedAttribute = "value";
+        }
     } else if (eventName === "REMOVE") {
-        auditEntry.oldValue = oldItem.value;
+        auditEntry.oldValue = oldItem?.value ?? null;
     }
 
     return dynamoDB.put({
