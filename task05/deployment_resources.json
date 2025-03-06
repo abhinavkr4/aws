@@ -1,6 +1,6 @@
 {
   "lambda-basic-execution": {
-    "Resource": "arn:aws:dynamodb:eu-central-1:196241772369:table/cmtr-0035135f-Events",
+
     "policy_content": {
       "Statement": [
         {
@@ -35,20 +35,7 @@
     "global_indexes": [],
     "autoscaling": [],
     "tags": {},
-    "region": "eu-central-1",
-    "key_schema": [
-      {
-        "AttributeName": "id",
-        "KeyType": "HASH"
-      }
-    ],
-    "attribute_definitions": [
-      {
-        "AttributeName": "id",
-        "AttributeType": "S"
-      }
-    ],
-    "billing_mode": "PAY_PER_REQUEST"
+    "region": "eu-central-1"
   },
   "task5_api": {
     "resource_type": "api_gateway",
@@ -61,8 +48,7 @@
           "lambda_name": "api_handler",
           "enable_proxy": true,
           "integration": {
-            "type": "AWS_PROXY",
-            "uri": "arn:aws:apigateway:{region}:lambda:path/2015-03-31/functions/${lambda_arn}/invocations"
+            "type": "AWS_PROXY"
           },
           "authorization_type": "NONE",
           "integration_type": "lambda",
