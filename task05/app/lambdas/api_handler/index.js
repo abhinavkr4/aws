@@ -49,14 +49,11 @@ export const handler = async (event) => {
 
         console.log("DynamoDB Response:", response);
 
-        const responseObject = {
-                    statusCode: 201,
-                    event: eventItem
+        return {
+            statusCode: 201,
+            body: JSON.stringify({ event: eventItem }) // Ensure body is a JSON string
+        };
 
-                };
-
-
-        return responseObject;
 
     } catch (error) {
         console.error("Error processing request:", error);
