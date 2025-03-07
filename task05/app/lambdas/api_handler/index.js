@@ -1,6 +1,6 @@
-import { DynamoDBClient } from "node_modules/@aws-sdk/client-dynamodb";
-import { PutCommand } from "node_modules/@aws-sdk/lib-dynamodb";
-import { v4 as uuidv4 } from "node_modules/uuid";
+import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
+import { PutCommand } from "@aws-sdk/lib-dynamodb";
+import { v4 as uuidv4 } from "uuid";
 
 const dynamoDBClient = new DynamoDBClient();
 const TABLE_NAME = process.env.TABLE_NAME || "Events";
@@ -51,7 +51,7 @@ export const handler = async (event) => {
 
         return {
             statusCode: 201,
-            body: JSON.stringify({ event: eventItem }) // Ensure body is a JSON string
+            body: JSON.stringify({statusCode:201, event: eventItem }) // Ensure body is a JSON string
         };
 
 
