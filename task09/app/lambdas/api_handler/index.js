@@ -1,4 +1,4 @@
-import { getLatestWeather } from "weather_sdk"; // Importing from the Lambda Layer
+import { getLatestWeather } from "app/lambdas/layers/weather_sdk"; // Importing from the Lambda Layer
 
 export const handler = async (event) => {
     console.log("Received event:", JSON.stringify(event, null, 2));
