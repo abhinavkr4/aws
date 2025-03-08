@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "weather_sdk": "file:app/lambdas/layers/weather_sdk"
+  }
+}

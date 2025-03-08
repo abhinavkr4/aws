@@ -1,4 +1,4 @@
-const axios = require('/opt/nodejs/weather-sdk'); // Importing the SDK from the Lambda Layer
+const axios = require('weather_sdk'); // Importing the SDK from the Lambda Layer
 
 exports.handler = async (event) => {
     try {
