@@ -1,81 +1,43 @@
-const axios = require('/opt/nodejs/weather_sdk'); // Importing the SDK from the Lambda Layer
+import { getLatestWeather } from "weather_sdk"; // Importing from the Lambda Layer
 
-exports.handler = async (event) => {
-    try {
-        // Extract the path and method from the request
-        const path = event.rawPath || "/";
-        const method = event.requestContext.http.method;
+export const handler = async (event) => {
+    console.log("Received event:", JSON.stringify(event, null, 2));
 
-        if (method === "GET" && path === "/weather") {
-            // Fetch weather data from the SDK (Replace with actual SDK call)
-            const weatherData = await getWeatherData();
+    // Extract the request path and method
+    const requestPath = event?.rawPath || event?.path;
+    const httpMethod = event?.httpMethod || "UNKNOWN";
 
+    if (requestPath === "/weather" && httpMethod === "GET") {
+        try {
+            // Fetch latest weather data from the weather-sdk layer
+            const weatherData = await getLatestWeather();
+
+            // Successful response
             return {
                 statusCode: 200,
                 body: JSON.stringify(weatherData),
-                headers: {
-                    "content-type": "application/json"
-                },
-                isBase64Encoded: false
+                headers: { "content-type": "application/json" },
+                isBase64Encoded: false,
             };
-        } else {
-            // Handle invalid requests
+        } catch (error) {
+            console.error("Error fetching weather data:", error);
             return {
-                statusCode: 400,
-                body: JSON.stringify({
-                    statusCode: 400,
-                    message: `Bad request syntax or unsupported method. Request path: ${path}. HTTP method: ${method}`
-                }),
-                headers: {
-                    "content-type": "application/json"
-                },
-                isBase64Encoded: false
+                statusCode: 500,
+                body: JSON.stringify({ statusCode: 500, message: "Internal Server Error" }),
+                headers: { "content-type": "application/json" },
+                isBase64Encoded: false,
             };
         }
-    } catch (error) {
-        console.error("Error:", error);
-        return {
-            statusCode: 500,
-            body: JSON.stringify({ message: "Internal Server Error" }),
-            headers: { "content-type": "application/json" },
-            isBase64Encoded: false
-        };
     }
-};
 
-// Mock function to fetch weather data (Replace with actual SDK function)
-async function getWeatherData() {
+    // Invalid request response
     return {
-        latitude: 50.4375,
-        longitude: 30.5,
-        generationtime_ms: 0.025033950805664062,
-        utc_offset_seconds: 7200,
-        timezone: "Europe/Kiev",
-        timezone_abbreviation: "EET",
-        elevation: 188.0,
-        hourly_units: {
-            time: "iso8601",
-            temperature_2m: "°C",
-            relative_humidity_2m: "%",
-            wind_speed_10m: "km/h"
-        },
-        hourly: {
-            time: ["2023-12-04T00:00", "2023-12-04T01:00", "2023-12-04T02:00"],
-            temperature_2m: [-2.4, -2.8, -3.2],
-            relative_humidity_2m: [84, 85, 87],
-            wind_speed_10m: [7.6, 6.8, 5.6]
-        },
-        current_units: {
-            time: "iso8601",
-            interval: "seconds",
-            temperature_2m: "°C",
-            wind_speed_10m: "km/h"
-        },
-        current: {
-            time: "2023-12-04T07:00",
-            interval: 900,
-            temperature_2m: 0.2,
-            wind_speed_10m: 10.0
-        }
+        statusCode: 400,
+        body: JSON.stringify({
+            statusCode: 400,
+            message: `Bad request syntax or unsupported method. Request path: ${requestPath}. HTTP method: ${httpMethod}`,
+        }),
+        headers: { "content-type": "application/json" },
+        isBase64Encoded: false,
     };
-}
+};
